@@ -15,46 +15,32 @@
         margin: 10px;
         width: 500px;
       }
-      .daterow {
-        width: 500px;
-      }
       paper-input {
         margin: 20px;
       }
-      .ratedescription {
-        margin: 40px 40px;
-        text-align: center;
-        padding: 20px;
-      }
-      .lrdemo {
-      }
-      a {
-        text-decoration: none;
-        color: #222222;
-      }
     </style>
       <iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
-      <div class="lrdemo layout center">
+      <div class="layout center">
         <paper-material>
-          <div class="daterow layout horizontal">
+          <div style="width: 500px" class="layout horizontal">
             <paper-input type="number" class="flex" value="{{day}}" label="day"></paper-input>
             <paper-input type="number" class="flex" value="{{month}}" label="month"></paper-input>
             <paper-input type="number" class="flex" value="{{year}}" label="year"></paper-input>
-            <paper-input type="number" class="flex"  value="{{nights}}" label="nights"></paper-input>
+            <paper-input type="number" class="flex" value="{{nights}}" label="nights"></paper-input>
           </div>
         </paper-material>
         <paper-material>
-        <div class="inputs layout horizontal">
+          <div class="inputs layout horizontal">
             <paper-input type="number" class="flex" value="{{hotelid}}" label="hotelid"></paper-input>
             <paper-input type="number" class="flex" value="{{affiliateid}}" label="affiliateid"></paper-input>
           </div>
         </paper-material>
-        <a href="{{_link}}">
-          <paper-material  class="layout middle" style="width: 300px;">
-              <div class="ratedescription">
-                Laterooms Rate From
-                    <p>{{rate}}</p>
-              </div>
+        <a style="text-decoration:none;color:#222" href="{{_link}}">
+          <paper-material class="layout middle" style="width: 300px;">
+            <div style="margin:40px 40px;text-align:center;padding: 20px">
+              Laterooms Rate From
+              <p>{{rate}}</p>
+            </div>
           </paper-material>
         </a>
       </div>
@@ -98,6 +84,7 @@
           room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].price.replace('£','')*1)
         }
         rates.push(room);
+        // TODO 1 night fixed
       }
       if (rates.sort()[rates.length-1] > 1) {
         return '£' + rates.sort()[rates.length-1].toFixed(2);
