@@ -3,7 +3,7 @@
 <link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <!--
-`<laterooms-ratepicker>` This is a Polymer Element that pulls in rates from Laterooms API. It is still a work in progress and what is here is pre production.
+`<laterooms-ratepicker hotelid="73022" affiliateid="3095">` This is a Polymer Element that pulls in rates from Laterooms API. It is still a work in progress and what is here is pre production.
 @demo demo.html
 -->
 
@@ -58,11 +58,7 @@
       affiliateid:{value:3095},
       _url: {computed:'getUrl(day,month,year,nights,hotelid,affiliateid)'},
       _link: {computed:'getLink(day,month,year,nights,hotelid,affiliateid)'},
-      data: {observer:'_dataChanged'},
       rate: {computed:'getRate(data)'}
-    },
-    _dataChanged: function(data){
-      console.log(data);
     },
     getUrl: function(day, month, year, nights, hotelid, affiliateid) {
       return "http://46.101.40.191/?u=%3Faid%3D"+affiliateid+"%26rtype%3D7%26hids%3D"+hotelid+"%26sdate%3D"+year+"-"+month+"-"+day+"%26nights%3D"+nights;
