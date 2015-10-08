@@ -72,6 +72,7 @@
       hotelid:{value:73022},
       affiliateid:{value:3095},
       _url: {computed:'getUrl(day,month,year,nights,hotelid,affiliateid)'},
+      _ulink: {computed:'getLink(day,month,year,nights,hotelid,affiliateid)'},
       data: {observer:'_dataChanged'},
       rate: {computed:'getRate(data)'}
     },
@@ -80,6 +81,9 @@
     },
     getUrl: function(day, month, year, nights, hotelid, affiliateid) {
       return "http://46.101.40.191/?u=%3Faid%3D"+affiliateid+"%26rtype%3D7%26hids%3D"+hotelid+"%26sdate%3D"+year+"-"+month+"-"+day+"%26nights%3D"+nights;
+    },
+    getLink: function(day,month,year,nights,hotelid,affiliateid) {
+      return ""+day+month+year+nights+hotelid+affiliateid;
     },
     getRate: function(data){
       var rates = [];
