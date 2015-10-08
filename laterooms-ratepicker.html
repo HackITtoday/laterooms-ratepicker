@@ -1,3 +1,18 @@
+<!doctype html>
+<html>
+  <head><base href="http://open-elements.org/bower_components/mediator-data/">
+    <title>mediator-data demo</title>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="mediator-data.html">
+  </head>
+  <body>
+    <h3>mediator-data Demo</h3>
+    <template is="dom-bind">
+      <laterooms-ratepicker />
+    </template>
+  </body>
+</html>
+
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
@@ -32,7 +47,6 @@
         text-decoration: none;
         color: #222222;
       }
-
     </style>
       <iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
       <div class="lrdemo layout center">
@@ -53,7 +67,7 @@
         <a href="{{_link}}">
           <paper-material  class="layout middle" style="width: 300px;">
               <div class="ratedescription">
-                Latrooms Rate From
+                Laterooms Rate From
                     <p>{{rate}}</p>
               </div>
           </paper-material>
@@ -83,7 +97,12 @@
       return "http://46.101.40.191/?u=%3Faid%3D"+affiliateid+"%26rtype%3D7%26hids%3D"+hotelid+"%26sdate%3D"+year+"-"+month+"-"+day+"%26nights%3D"+nights;
     },
     getLink: function(day,month,year,nights,hotelid,affiliateid) {
-      return ""+day+month+year+nights+hotelid+affiliateid;
+      if ((""+day).length == 1) day = "0" + day;
+      if ((""+month).length == 1) month = "0" + month;
+      
+      return "http://www.laterooms.com/en/p"+affiliateid+
+        "/hotel-reservations/"+hotelid+".aspx?d="+year+month+day+"n="+nights+"&rt=2-0&adult=2&child=0";
+      // working link http://www.laterooms.com/en/p3095/hotel-reservations/73022.aspx?d=20151201&n=4&rt=2-0&adult=2&child=0
     },
     getRate: function(data){
       var rates = [];
@@ -99,7 +118,6 @@
       } else {
         return 'No rates available';
       }
-
     }
   });
 </script>
