@@ -11,10 +11,6 @@
 <dom-module id="laterooms-ratepicker">
   <template>
     <style>
-      paper-material {
-        margin: 10px;
-        width: 500px;
-      }
       paper-input {
         margin: 20px;
       }
@@ -27,12 +23,6 @@
             <paper-input type="number" class="flex" value="{{month}}" label="month"></paper-input>
             <paper-input type="number" class="flex" value="{{year}}" label="year"></paper-input>
             <paper-input type="number" class="flex" value="{{nights}}" label="nights"></paper-input>
-          </div>
-        </paper-material>
-        <paper-material>
-          <div class="inputs layout horizontal">
-            <paper-input type="number" class="flex" value="{{hotelid}}" label="hotelid"></paper-input>
-            <paper-input type="number" class="flex" value="{{affiliateid}}" label="affiliateid"></paper-input>
           </div>
         </paper-material>
         <a style="text-decoration:none;color:#222" href="{{_link}}">
