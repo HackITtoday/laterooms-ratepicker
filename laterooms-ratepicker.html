@@ -17,8 +17,8 @@
     </style>
       <iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
       <div class="layout center">
-        <paper-material>
-          <div style="width: 500px" class="layout horizontal">
+        <paper-material style="max-width: 500px">
+          <div class="layout horizontal">
             <paper-input type="number" class="flex" value="{{day}}" label="day"></paper-input>
             <paper-input type="number" class="flex" value="{{month}}" label="month"></paper-input>
             <paper-input type="number" class="flex" value="{{year}}" label="year"></paper-input>
@@ -26,7 +26,7 @@
           </div>
         </paper-material>
         <a style="text-decoration:none;color:#222" href="{{_link}}">
-          <paper-material class="layout middle" style="width: 300px;">
+          <paper-material class="layout middle" style="max-width: 300px;">
             <div style="margin:40px 40px;text-align:center;padding: 20px">
               Laterooms Rate From
               <p>{{rate}}</p>
