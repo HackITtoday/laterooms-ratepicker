@@ -50,7 +50,7 @@
             <paper-input type="number" class="flex" value="{{affiliateid}}" label="affiliateid"></paper-input>
           </div>
         </paper-material>
-        <a href="#">
+        <a href="_link">
           <paper-material  class="layout middle" style="width: 300px;">
               <div class="ratedescription">
                 Latrooms Rate From
@@ -72,7 +72,7 @@
       hotelid:{value:73022},
       affiliateid:{value:3095},
       _url: {computed:'getUrl(day,month,year,nights,hotelid,affiliateid)'},
-      _ulink: {computed:'getLink(day,month,year,nights,hotelid,affiliateid)'},
+      _link: {computed:'getLink(day,month,year,nights,hotelid,affiliateid)'},
       data: {observer:'_dataChanged'},
       rate: {computed:'getRate(data)'}
     },
