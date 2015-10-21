@@ -9,19 +9,12 @@
 
 <dom-module id="laterooms-datepicker">
 	<template>
-		<style>
-			h1 {
-				font-size: 16px;
-				font-weight: 400;
-				margin: 0;
-			}
-		</style>
 		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
 		<div class="layout center">
 			<paper-material style="max-width: 500px">
 				<div class="box center horizontal layout">
-          <paper-button-date-picker date="{{checkIn}}" ></paper-button-date-picker>
-          <paper-button-date-picker date="{{checkOut}}" ></paper-button-date-picker>
+          <paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
+          <paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
 				</div>
 			</paper-material>
 			<a style="text-decoration:none;color:#222" href="{{_link}}">
