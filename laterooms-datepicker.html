@@ -72,33 +72,15 @@
 	Polymer({
 		is: "laterooms-datepicker",
 		properties: {
-			day: {
-				value: 23
-			},
-			month: {
-				value: 2
-			},
-			year: {
-				value: 2016
-			},
-			nights: {
-				value: 2
-			},
-			hotelid: {
-				value: 73022
-			},
-			affiliateid: {
-				value: 3095
-			},
-			_url: {
-				computed: 'getUrl(day,month,year,nights,hotelid,affiliateid)'
-			},
-			_link: {
-				computed: 'getLink(day,month,year,nights,hotelid,affiliateid)'
-			},
-			rate: {
-				computed: 'getRate(data)'
-			}
+			day: {value: 23},
+			month: {value: 2},
+			year: {value: 2016},
+			nights: {value: 2},
+			hotelid: {value: 73022},
+			affiliateid: {value: 3095},
+			_url: {computed: 'getUrl(day,month,year,nights,hotelid,affiliateid)'},
+			_link: {computed: 'getLink(day,month,year,nights,hotelid,affiliateid)'},
+			rate: {computed: 'getRate(data)'}
 		},
 		getUrl: function(day, month, year, nights, hotelid, affiliateid) {
 			return "http://46.101.40.191/?u=%3Faid%3D" + affiliateid + "%26rtype%3D7%26hids%3D" + hotelid + "%26sdate%3D" + year + "-" + month + "-" + day + "%26nights%3D" + nights;
@@ -128,7 +110,7 @@
 				return 'No rates available';
 			}
 		}
-	});
+  });
 	
 /* Script for the paper-datepicker part. WTF */
 	 document.addEventListener('WebComponentsReady', function() {
