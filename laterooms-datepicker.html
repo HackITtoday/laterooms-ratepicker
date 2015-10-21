@@ -56,7 +56,6 @@
 						</section>
 					</template>
 				</div>
-
 			</paper-material>
 			<a style="text-decoration:none;color:#222" href="{{_link}}">
 				<paper-material class="layout middle" style="max-width: 300px;">
@@ -131,7 +130,7 @@
 		}
 	});
 	
-/* Script for the paper-datepicker part. */
+/* Script for the paper-datepicker part. WTF */
 	 document.addEventListener('WebComponentsReady', function() {
       var checkin = Polymer.dom(document).querySelector('#checkin');
       checkin.dateFormat = checkin.$.picker.dateFormat;
@@ -145,6 +144,7 @@
       };
       checkin.date = new Date();
     });
+    
     document.addEventListener('WebComponentsReady', function() {
       var checkout = Polymer.dom(document).querySelector('#checkout');
       checkout.dateFormat = checkout.$.picker.dateFormat;
