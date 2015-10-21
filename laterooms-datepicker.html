@@ -1,11 +1,7 @@
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
-<link rel="import" href="../paper-date-picker/paper-date-picker.html">
-<link rel="import" href="../paper-dialog/paper-dialog.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-date-picker/paper-button-date-picker.html">
 <!--
 `<laterooms-datepicker hotelid="73022" affiliateid="3095">` This is a Polymer Element that pulls in rates from Laterooms API. It is still a work in progress and what is here is pre production.
 @demo demo2.html
@@ -24,37 +20,8 @@
 		<div class="layout center">
 			<paper-material style="max-width: 500px">
 				<div class="box center horizontal layout">
-					<template is="dom-bind" id="checkin">
-						<section>
-							<paper-button class="btn horizontal layout" on-tap="showDialog" raised>
-								<iron-icon icon="today"></iron-icon>
-								<h1>{{dateFormat(date, 'L')}}</h1>
-							</paper-button>
-							<paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
-								<paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
-								<div class="buttons">
-									<paper-button dialog-dismiss>Cancel</paper-button>
-									<paper-button dialog-confirm>OK</paper-button>
-								</div>
-							</paper-dialog>
-						</section>
-					</template>
-
-					<template is="dom-bind" id="checkout">
-						<section>
-							<paper-button class="btn horizontal layout" on-tap="showDialog" raised>
-								<iron-icon icon="today"></iron-icon>
-								<h1>{{dateFormat(date, 'L')}}</h1>
-							</paper-button>
-							<paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
-								<paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
-								<div class="buttons">
-									<paper-button dialog-dismiss>Cancel</paper-button>
-									<paper-button dialog-confirm>OK</paper-button>
-								</div>
-							</paper-dialog>
-						</section>
-					</template>
+          <paper-button-date-picker date="{{checkIn}}" ></paper-button-date-picker>
+          <paper-button-date-picker date="{{checkOut}}" ></paper-button-date-picker>
 				</div>
 			</paper-material>
 			<a style="text-decoration:none;color:#222" href="{{_link}}">
@@ -111,36 +78,5 @@
 			}
 		}
   });
-	
-/* Script for the paper-datepicker part. WTF */
-	 document.addEventListener('WebComponentsReady', function() {
-      var checkin = Polymer.dom(document).querySelector('#checkin');
-      checkin.dateFormat = checkin.$.picker.dateFormat;
-      checkin.dismissDialog = function(event) {
-        if (event.detail.confirmed) {
-          checkin.date = checkin.$.picker.date;
-        }
-      };
-      checkin.showDialog = function() {
-        this.$.dialog.toggle();
-      };
-      checkin.date = new Date();
-    });
-    
-    document.addEventListener('WebComponentsReady', function() {
-      var checkout = Polymer.dom(document).querySelector('#checkout');
-      checkout.dateFormat = checkout.$.picker.dateFormat;
-      checkout.dismissDialog = function(event) {
-        if (event.detail.confirmed) {
-          checkout.date = checkout.$.picker.date;
-        }
-      };
-      checkout.showDialog = function() {
-        this.$.dialog.toggle();
-      };
-      checkout.date = new Date();
-    });
-/* end of Script for paper-datepicker part */
-	
 </script>
 
