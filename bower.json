@@ -4,7 +4,10 @@
     "Marcus Hitchins <marcus@hhost.me>"
   ],
   "description": "Laterooms Rate Picker - This uses laterooms xml rate feed through a proxy server that we have setup. So if you need this for yourself can you please setup your own proxy server. php code included",
-  "main": "laterooms-ratepicker.html",
+  "main": [
+    "laterooms-ratepicker.html",
+    "laterooms-datepicker.html"
+  ],
   "license": "MIT",
   "dependencies": {
     "paper-date-picker": "bendavis78/paper-date-picker",
