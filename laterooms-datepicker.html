@@ -1,17 +1,164 @@
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../paper-date-picker/paper-date-picker.html">
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 <!--
-`<laterooms-ratepicker>` 
+`<laterooms-datepicker hotelid="73022" affiliateid="3095">` This is a Polymer Element that pulls in rates from Laterooms API. It is still a work in progress and what is here is pre production.
 @demo demo2.html
 -->
 
-<dom-module id="laterooms-ratepicker">
-  <template>
+<dom-module id="laterooms-datepicker">
+	<template>
+		<style>
+			h1 {
+				font-size: 16px;
+				font-weight: 400;
+				margin: 0;
+			}
+		</style>
+		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
+		<div class="layout center">
+			<paper-material style="max-width: 500px">
+				<div class="box center horizontal layout">
+					<template is="dom-bind" id="checkin">
+						<section>
+							<paper-button class="btn horizontal layout" on-tap="showDialog" raised>
+								<iron-icon icon="today"></iron-icon>
+								<h1>{{dateFormat(date, 'L')}}</h1>
+							</paper-button>
+							<paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
+								<paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
+								<div class="buttons">
+									<paper-button dialog-dismiss>Cancel</paper-button>
+									<paper-button dialog-confirm>OK</paper-button>
+								</div>
+							</paper-dialog>
+						</section>
+					</template>
 
-  </template>
+					<template is="dom-bind" id="checkout">
+						<section>
+							<paper-button class="btn horizontal layout" on-tap="showDialog" raised>
+								<iron-icon icon="today"></iron-icon>
+								<h1>{{dateFormat(date, 'L')}}</h1>
+							</paper-button>
+							<paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
+								<paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
+								<div class="buttons">
+									<paper-button dialog-dismiss>Cancel</paper-button>
+									<paper-button dialog-confirm>OK</paper-button>
+								</div>
+							</paper-dialog>
+						</section>
+					</template>
+				</div>
+
+			</paper-material>
+			<a style="text-decoration:none;color:#222" href="{{_link}}">
+				<paper-material class="layout middle" style="max-width: 300px;">
+					<div style="margin:40px 40px;text-align:center;padding: 20px">
+						Laterooms Rate From
+						<p>{{rate}}</p>
+					</div>
+				</paper-material>
+			</a>
+		</div>
+	</template>
 </dom-module>
 <script>
-  Polymer({
-    is: "laterooms-ratepicker"
-  });
+	Polymer({
+		is: "laterooms-datepicker",
+		properties: {
+			day: {
+				value: 23
+			},
+			month: {
+				value: 2
+			},
+			year: {
+				value: 2016
+			},
+			nights: {
+				value: 2
+			},
+			hotelid: {
+				value: 73022
+			},
+			affiliateid: {
+				value: 3095
+			},
+			_url: {
+				computed: 'getUrl(day,month,year,nights,hotelid,affiliateid)'
+			},
+			_link: {
+				computed: 'getLink(day,month,year,nights,hotelid,affiliateid)'
+			},
+			rate: {
+				computed: 'getRate(data)'
+			}
+		},
+		getUrl: function(day, month, year, nights, hotelid, affiliateid) {
+			return "http://46.101.40.191/?u=%3Faid%3D" + affiliateid + "%26rtype%3D7%26hids%3D" + hotelid + "%26sdate%3D" + year + "-" + month + "-" + day + "%26nights%3D" + nights;
+		},
+		getLink: function(day, month, year, nights, hotelid, affiliateid) {
+			if (("" + day).length == 1) day = "0" + day;
+			if (("" + month).length == 1) month = "0" + month;
+
+			return "http://www.laterooms.com/en/p" + affiliateid +
+				"/hotel-reservations/" + hotelid + ".aspx?d=" + year + month + day +
+				"&n=" + nights + "&rt=2-0&adult=2&child=0";
+			// working link http://www.laterooms.com/en/p3095/hotel-reservations/73022.aspx?d=20151201&n=4&rt=2-0&adult=2&child=0
+		},
+		getRate: function(data) {
+			var rates = [];
+			for (var index = 0; index < data.lr_rates.hotel.hotel_rooms.room.length; ++index) {
+				var room = 0
+				for (var indexRate = 0; indexRate < data.lr_rates.hotel.hotel_rooms.room[index].rate.length; ++indexRate) {
+					room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].price.replace('£', '') * 1)
+				}
+				rates.push(room);
+				// TODO 1 night fixed
+			}
+			if (rates.sort()[rates.length - 1] > 1) {
+				return '£' + rates.sort()[rates.length - 1].toFixed(2);
+			} else {
+				return 'No rates available';
+			}
+		}
+	});
+	
+/* Script for the paper-datepicker part. */
+	 document.addEventListener('WebComponentsReady', function() {
+      var checkin = Polymer.dom(document).querySelector('#checkin');
+      checkin.dateFormat = checkin.$.picker.dateFormat;
+      checkin.dismissDialog = function(event) {
+        if (event.detail.confirmed) {
+          checkin.date = checkin.$.picker.date;
+        }
+      };
+      checkin.showDialog = function() {
+        this.$.dialog.toggle();
+      };
+      checkin.date = new Date();
+    });
+    document.addEventListener('WebComponentsReady', function() {
+      var checkout = Polymer.dom(document).querySelector('#checkout');
+      checkout.dateFormat = checkout.$.picker.dateFormat;
+      checkout.dismissDialog = function(event) {
+        if (event.detail.confirmed) {
+          checkout.date = checkout.$.picker.date;
+        }
+      };
+      checkout.showDialog = function() {
+        this.$.dialog.toggle();
+      };
+      checkout.date = new Date();
+    });
+/* end of Script for paper-datepicker part */
+	
 </script>
+
