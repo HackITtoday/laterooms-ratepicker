@@ -2,5 +2,5 @@
 
 This uses laterooms xml rate feed through a proxy server that we have setup. So if you need this for yourself can you please setup your own proxy server.
 
-[demo](https://open-elements.org/elements/laterooms-ratepicker?view=demo:demo2.html&active=laterooms-datepicker)
+[demo](http://dev.open-elements.org/bower_components/laterooms-ratepicker/demo2.html)
 
