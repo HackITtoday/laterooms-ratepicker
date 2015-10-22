@@ -74,16 +74,16 @@ Polymer({
       data.lr_rates.hotel.hotel_rooms.room.hasOwnProperty('room')) {
       for (var index = 0; index < data.lr_rates.hotel.hotel_rooms.room.length; ++index) {
         var room = 0
-
+  
         for (var indexRate = 0; indexRate < data.lr_rates.hotel.hotel_rooms.room[index].rate.length; ++indexRate) {
           room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].price.replace('£', '') * 1)
         }
 
         rates.push(room)
       // TODO 1 night fix
-      } else {
-      	// test of other data layout
-      }
+      } 
+    } else {
+      // test of other data layout
     }
     if (rates.sort()[rates.length - 1] > 1) {
       return '£' + rates.sort()[rates.length - 1].toFixed(2)
