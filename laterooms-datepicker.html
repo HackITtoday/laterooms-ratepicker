@@ -55,7 +55,7 @@
 		getNights: function(checkIn, checkOut) {
 		  var a = moment(checkIn)
       var b = moment(checkOut)
-      alert(a.from(b)) // "a day ago"
+      alert(a.to(b))
 		  return 2
 		},
 		getUrl: function(day, month, year, nights, hotelid, affiliateid) {
