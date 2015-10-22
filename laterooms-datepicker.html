@@ -9,25 +9,25 @@
 -->
 
 <dom-module id="laterooms-datepicker">
-	<template>
-		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
-		<div class="layout center">
-			<paper-material style="max-width: 500px">
-				<div class="box center horizontal layout">
+  <template>
+    <iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
+    <div class="layout center">
+      <paper-material style="max-width: 500px">
+        <div class="box center horizontal layout">
           <paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
           <paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
-				</div>
-			</paper-material>
-			<a style="text-decoration:none;color:#222" href="{{_link}}">
-				<paper-material class="layout middle" style="max-width: 300px;">
-					<div style="margin:40px 40px;text-align:center;padding: 20px">
-						Laterooms Rate From
-						<p>{{rate}}</p>
-					</div>
-				</paper-material>
-			</a>
-		</div>
-	</template>
+        </div>
+      </paper-material>
+      <a style="text-decoration:none;color:#222" href="{{_link}}">
+        <paper-material class="layout middle" style="max-width: 300px;">
+          <div style="margin:40px 40px;text-align:center;padding: 20px">
+            Laterooms Rate From
+            <p>{{rate}}</p>
+          </div>
+        </paper-material>
+      </a>
+    </div>
+  </template>
 </dom-module>
 <script>
 Polymer({
@@ -48,7 +48,11 @@ Polymer({
   getYear: function (checkIn) { return checkIn.getFullYear() },
   getNights: function (checkIn, checkOut) {
     var a = moment(checkOut - checkIn)
-    return Math.ceil(a / (1000 * 60 * 60 * 24))
+    if (a > 0) {
+      return Math.ceil(a / (1000 * 60 * 60 * 24))
+    } else {
+      return undefined
+    }
   },
   getUrl: function (day, month, year, nights, hotelid, affiliateid) {
     return 'http://46.101.40.191/?u=%3Faid%3D' + affiliateid + '%26rtype%3D7%26hids%3D' + hotelid + '%26sdate%3D' + year + '-' + month + '-' + day + '%26nights%3D' + nights
@@ -56,7 +60,6 @@ Polymer({
   getLink: function (day, month, year, nights, hotelid, affiliateid) {
     if (('' + day).length === 1) day = '0' + day
     if (('' + month).length === 1) month = '0' + month
-
     return 'http://www.laterooms.com/en/p' + affiliateid +
     '/hotel-reservations/' + hotelid + '.aspx?d=' + year + month + day +
     '&n=' + nights + '&rt=2-0&adult=2&child=0'
@@ -64,13 +67,23 @@ Polymer({
   },
   getRate: function (data) {
     var rates = []
-    for (var index = 0; index < data.lr_rates.hotel.hotel_rooms.room.length; ++index) {
-      var room = 0
-      for (var indexRate = 0; indexRate < data.lr_rates.hotel.hotel_rooms.room[index].rate.length; ++indexRate) {
-        room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].price.replace('£', '') * 1)
+    if (data.hasOwnProperty('lr_rates') &&
+      data.lr_rates.hasOwnProperty('hotel') &&
+      data.lr_rates.hotel.hasOwnProperty('hotel_rooms') &&
+      data.lr_rates.hotel.hotel_rooms.hasOwnProperty('room') &&
+      data.lr_rates.hotel.hotel_rooms.room.hasOwnProperty('room')) {
+      for (var index = 0; index < data.lr_rates.hotel.hotel_rooms.room.length; ++index) {
+        var room = 0
+
+        for (var indexRate = 0; indexRate < data.lr_rates.hotel.hotel_rooms.room[index].rate.length; ++indexRate) {
+          room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].price.replace('£', '') * 1)
+        }
+
+        rates.push(room)
+      // TODO 1 night fix
+      } else {
+      	// test of other data layout
       }
-      rates.push(room)
-    // TODO 1 night fixed
     }
     if (rates.sort()[rates.length - 1] > 1) {
       return '£' + rates.sort()[rates.length - 1].toFixed(2)
@@ -80,4 +93,3 @@ Polymer({
   }
 })
 </script>
-
