@@ -10,11 +10,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "paper-date-picker": "bendavis78/paper-date-picker",
-    "moment-js":"marcus7777/moment-js",
+    "paper-date-picker": "marcus7777/paper-date-picker#~1.0.3",
+    "moment-js": "marcus7777/moment-js",
     "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
     "paper-input": "PolymerElements/paper-input#^1.0.0",
-    "paper-material": "PolymerElements/paper-material#^1.0.0"
+    "paper-material": "PolymerElements/paper-material#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#~1.0.7"
   }
 }
