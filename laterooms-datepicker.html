@@ -10,32 +10,31 @@
 
 <dom-module id="laterooms-datepicker">
   <template>
-		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
-		<div class="layout center">
-			<div class="box center horizontal layout">
-        <h3>Check in</h3><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
-        <h3>Check out</h3><paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
-			</div>
-			<div class="layout horizontal">
-					<a style="text-decoration:none;color:#222" href="{{_link}}">
-				<paper-material class="layout middle" style="max-width: 300px;">
-					<div style="margin:40px 40px;text-align:center;padding: 20px">
-						Laterooms Rate From
-						<p>{{rate}}</p>
-          </div>
-				</paper-material>
-				<paper-material class="layout middle" style="max-width: 300px;">
-					<div style="margin:40px 40px;text-align:center;padding: 20px">
-						Name of Company
-						<p>Call for Best Rates</p>
-						<p>0800 000 0000</p>
-          </div>
-				</paper-material>
-			</a>
-			</div>
-      <h2>debugging:</h2>
-      <p>{{_link}}</p>
-      <p>{{_url}}</p>
+  	<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
+  	<div class="layout center">
+  		<div class="box center horizontal layout">
+  			<h3>Check in</h3><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
+  			<h3>Check out</h3><paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
+  		</div>
+  		<template is="dom-if" if="{{show}}">
+  		  <div class="layout horizontal">
+  			  <a style="text-decoration:none;color:#222" href="{{_link}}">
+				    <paper-material class="layout middle" style="max-width: 300px;">
+					    <div style="margin:40px 40px;text-align:center;padding: 20px">
+					  	  Laterooms Rate From
+					  	  <p>{{rate}}</p>
+              </div>
+				    </paper-material>
+				  </a>
+				  <a style="text-decoration:none;color:#222" href="{{_link}}">
+				    <paper-material class="layout middle" style="max-width: 300px;">
+					    <div style="margin:40px 40px;text-align:center;padding: 20px">
+								<content></content>
+					    </div>
+					  </paper-material>
+				  </a>
+			  </div>
+			</template>
 		</div>
   </template>
 </dom-module>
@@ -96,6 +95,7 @@ Polymer({
       // test of other data layout
     }
     if (rates.sort()[rates.length - 1] > 1) {
+    	this.show = true; 
       return '£' + rates.sort()[rates.length - 1].toFixed(2)
     } else {
       return 'No rates available'
