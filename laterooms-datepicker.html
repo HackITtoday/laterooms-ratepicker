@@ -12,7 +12,7 @@
 	<template>
 		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
 		<div class="layout center">
-			<div on-tap="show" class="box center horizontal layout">
+			<div on-tap="showCard" class="box center horizontal layout">
 				<h3>Check in</h3><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
 				<h3>Check out</h3><paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
   		</div>
@@ -52,7 +52,7 @@ Polymer({
     _link: {computed: 'getLink(day, month, year, nights, hotelid, affiliateid)'},
     rate: {computed: 'getRate(data)'}
   },
-  show: function () {this.show = true},
+  showCard: function () {this.show = true},
   getDay: function (checkIn) { return checkIn.getDate() },
   getMonth: function (checkIn) { return checkIn.getMonth() + 1 },
   getYear: function (checkIn) { return checkIn.getFullYear() },
@@ -96,7 +96,6 @@ Polymer({
       // test of other data layout
     }
     if (rates.sort()[rates.length - 1] > 1) {
-      this.show = true
       return '£' + rates.sort()[rates.length - 1].toFixed(2)
     } else {
       return 'No rates available'
