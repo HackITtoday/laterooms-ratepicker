@@ -4,7 +4,7 @@
 <link rel="import" href="../paper-date-picker/paper-button-date-picker.html">
 <link rel="import" href="../moment-js/moment-js.html">
 <!--
-`<laterooms-datepicker hotelid="73022" affiliateid="3095">` This is a Polymer Element that pulls in rates from Laterooms API. It is still a work in progress and what is here is pre production.
+`<laterooms-datepicker hotel-id="73022" affiliateid="3095">` This is a Polymer Element that pulls in rates from Laterooms API. It is still a work in progress and what is here is pre production.
 @demo demo2.html
 -->
 
@@ -13,8 +13,8 @@
 		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
 		<div class="layout center">
 			<div on-tap="showCard" class="box center horizontal layout">
-				<h3>Check in</h3><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
-				<h3>Check out</h3><paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
+				<h4>Check in</h4><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
+				<h4>Check out</h4><paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
   			</div>
   		<template is="dom-if" if="{{show}}">
   		  <div class="layout horizontal">
@@ -40,10 +40,10 @@ Polymer({
     month: {computed: 'getMonth(checkIn)'},
     year: {computed: 'getYear(checkIn)'},
     nights: {computed: 'getNights(checkIn, checkOut)'},
-    hotelid: {value: 69407},
+    hotelId: {value: 69407},
     affiliateid: {value: 3095},
-    _url: {computed: 'getUrl(day, month, year, nights, hotelid, affiliateid)'},
-    _link: {computed: 'getLink(day, month, year, nights, hotelid, affiliateid)'},
+    _url: {computed: 'getUrl(day, month, year, nights, hotelId, affiliateid)'},
+    _link: {computed: 'getLink(day, month, year, nights, hotelId, affiliateid)'},
     rate: {computed: 'getRate(data)'}
   },
   showCard: function () {this.show = true},
@@ -58,14 +58,14 @@ Polymer({
       return undefined
     }
   },
-  getUrl: function (day, month, year, nights, hotelid, affiliateid) {
+  getUrl: function (day, month, year, nights, hotelId, affiliateid) {
     return '/bower_components/laterooms-ratepicker/server/index.php?u=%3Faid%3D' + affiliateid + '%26rtype%3D7%26hids%3D' + hotelid + '%26sdate%3D' + year + '-' + month + '-' + day + '%26nights%3D' + nights
   },
-  getLink: function (day, month, year, nights, hotelid, affiliateid) {
+  getLink: function (day, month, year, nights, hotelId, affiliateid) {
     if (('' + day).length === 1) day = '0' + day
     if (('' + month).length === 1) month = '0' + month
     return 'http://www.laterooms.com/en/p' + affiliateid +
-    '/hotel-reservations/' + hotelid + '.aspx?d=' + year + month + day +
+    '/hotel-reservations/' + hotelId + '.aspx?d=' + year + month + day +
     '&n=' + nights + '&rt=2-0&adult=2&child=0'
   // working link http://www.laterooms.com/en/p3095/hotel-reservations/73022.aspx?d=20151201&n=4&rt=2-0&adult=2&child=0
   },
