@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "paper-date-picker": "marcus7777/paper-date-picker#~1.0.3",
+    "paper-date-picker": "marcus7777/paper-date-picker#master",
     "moment-js": "marcus7777/moment-js",
     "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
