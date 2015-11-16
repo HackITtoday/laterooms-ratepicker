@@ -59,6 +59,7 @@ Polymer({
     var a = moment(checkOut - checkIn)
     if (a > 0) {
       return Math.ceil(a / (1000 * 60 * 60 * 24))
+      this.show = true
     } else {
       return undefined
     }
@@ -95,7 +96,7 @@ Polymer({
       // test of other data layout
     }
     if (rates.sort()[rates.length - 1] > 1) {
-    	this.show = true; 
+      this.show = true
       return '£' + rates.sort()[rates.length - 1].toFixed(2)
     } else {
       return 'No rates available'
