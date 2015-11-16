@@ -14,7 +14,8 @@ support - at - teamweather.com
 License:
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
 
-Last Updated:	2014-08-29
+needs 
+sudo apt-get install php5-curl
  **/
 
 /* Do not modify this line because of request limits set for Azure. */
