@@ -11,6 +11,12 @@
 <dom-module id="laterooms-datepicker">
 	<template>
 		<iron-ajax auto url="{{_url}}" last-response="{{data}}"></iron-ajax>
+		<style>
+		  paper-button-date-picker {
+        	    background: var(--default-background-color)
+        	    color: var(--text-primary-color);
+		  }	
+		</style>
 		<div class="layout center">
 			<div on-tap="showCard" class="box center horizontal layout">
 				<h4>Check in</h4><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
