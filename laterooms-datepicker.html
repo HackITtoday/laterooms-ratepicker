@@ -59,7 +59,7 @@ Polymer({
     }
   },
   getUrl: function (day, month, year, nights, hotelId, affiliateid) {
-    return '/bower_components/laterooms-ratepicker/server/index.php?u=%3Faid%3D' + affiliateid + '%26rtype%3D7%26hids%3D' + hotelid + '%26sdate%3D' + year + '-' + month + '-' + day + '%26nights%3D' + nights
+    return '/bower_components/laterooms-ratepicker/server/index.php?u=%3Faid%3D' + affiliateid + '%26rtype%3D7%26hids%3D' + hotelId + '%26sdate%3D' + year + '-' + month + '-' + day + '%26nights%3D' + nights
   },
   getLink: function (day, month, year, nights, hotelId, affiliateid) {
     if (('' + day).length === 1) day = '0' + day
