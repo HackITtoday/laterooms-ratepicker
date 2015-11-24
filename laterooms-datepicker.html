@@ -108,7 +108,7 @@ Polymer({
       rates.push(room)
     }
     if (rates.sort()[rates.length - 1] > 1) {
-      return '&pound;' + rates.sort()[rates.length - 1].toFixed(2)
+      return '£' + rates.sort()[rates.length - 1].toFixed(2)
     } else {
       return 'No rates available'
     }
