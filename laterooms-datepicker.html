@@ -21,7 +21,7 @@
       <div on-tap="showCard" class="box center horizontal layout">
         <h4>Check in</h4><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
         <h4>Check out</h4><paper-button-date-picker date="{{checkOut}}" locale="en-gb"></paper-button-date-picker>
-      </div>
+        </div>
       <template is="dom-if" if="{{show}}">
         <div class="layout horizontal">
           <a style="text-decoration:none;color:#222" href="{{_link}}">
@@ -51,7 +51,7 @@ Polymer({
     _url: {computed: 'getUrl(day, month, year, nights, hotelId, affiliateid, server)'},
     _link: {computed: 'getLink(day, month, year, nights, hotelId, affiliateid)'},
     rate: {computed: 'getRate(data)'},
-    server:{value: "/bower_components/laterooms-ratepicker/server/index.php"}
+    server:{value: "/bower_components/laterooms-ratepicker/server/"}
   },
   showCard: function () {this.show = true},
   getDay: function (checkIn) { return checkIn.getDate() },
@@ -87,12 +87,18 @@ Polymer({
         var room = 0
   
         for (var indexRate = 0; indexRate < data.lr_rates.hotel.hotel_rooms.room[index].rate.length; ++indexRate) {
-          room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].numeric_price * 1)
+          if (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].numeric_price !== "Full") {
+            room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate[indexRate].numeric_price * 1)
+          }
         }
         if (room === 0) {
-          room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate.numeric_price * 1)
+          if (data.lr_rates.hotel.hotel_rooms.room[index].rate.numeric_price !== "Full") {
+            room = room + (data.lr_rates.hotel.hotel_rooms.room[index].rate.numeric_price * 1)
+          }
         }
-        rates.push(room)
+        if (room !== 0) {
+          rates.push(room)
+        }
       } 
     } else if (data.hasOwnProperty('lr_rates') &&
       data.lr_rates.hasOwnProperty('hotel') &&
@@ -100,14 +106,20 @@ Polymer({
       data.lr_rates.hotel.hotel_rooms.hasOwnProperty('room')) {
       var room = 0
       for (var indexRate = 0; indexRate < data.lr_rates.hotel.hotel_rooms.room[index].rate.length; ++indexRate) {
-        room = room + (data.lr_rates.hotel.hotel_rooms.room.rate[indexRate].numeric_price * 1)
+        if (data.lr_rates.hotel.hotel_rooms.room.rate[indexRate].numeric_price !== "Full") {
+          room = room + (data.lr_rates.hotel.hotel_rooms.room.rate[indexRate].numeric_price * 1)
+        }
       }
       if (room === 0) {
-        room = room + (data.lr_rates.hotel.hotel_rooms.room.rate.numeric_price * 1)
+        if (data.lr_rates.hotel.hotel_rooms.room.rate.numeric_price !== "Full") {
+          room = room + (data.lr_rates.hotel.hotel_rooms.room.rate.numeric_price * 1)
+        }
+      } 
+      if (room !== 0) {
+        rates.push(room)
       }
-      rates.push(room)
     }
-    if (rates.sort()[rates.length - 1] > 1) {
+    if (rates.length > 0 && rates.sort()[rates.length - 1] > 1) {
       return '£' + rates.sort()[rates.length - 1].toFixed(2)
     } else {
       return 'No rates available'
