@@ -51,7 +51,7 @@ Polymer({
     hotelId: {value: 69407},
     affiliateid: {value: 3095},
     _url: {computed: 'getUrl(day, month, year, nights, hotelId, affiliateid, server)'},
-    _link: {computed: 'getLink(day, month, year, nights, hotelId, affiliateid)'},
+    _link: {computed: 'getLink(url, day, month, year, nights, hotelId, affiliateid)'},
     rate: {computed: 'getRate(data)'},
     server:{value: "/bower_components/laterooms-ratepicker/server/"}
   },
@@ -59,14 +59,6 @@ Polymer({
   getDay: function (checkIn) { return checkIn.getDate() },
   getMonth: function (checkIn) { return checkIn.getMonth() + 1 },
   getYear: function (checkIn) { return checkIn.getFullYear() },
-  getNights: function (checkIn, checkOut) {
-    var a = moment(checkOut - checkIn)
-    if (a > 0) {
-      return Math.ceil(a / (1000 * 60 * 60 * 24))
-    } else {
-      return undefined
-    }
-  },
   getUrl: function (day, month, year, nights, hotelId, affiliateid, server) {
     return server + '?u=%3Faid%3D' + affiliateid + '%26rtype%3D7%26hids%3D' + hotelId + '%26sdate%3D' + year + '-' + month + '-' + day + '%26nights%3D' + nights
   },
