@@ -22,7 +22,7 @@
       <div on-tap="showCard" class="box center horizontal layout">
         <h4>Check in</h4><paper-button-date-picker date="{{checkIn}}" locale="en-gb"></paper-button-date-picker>
         <paper-input min="1" max="20" type="number" class="flex" value="{{nights}}" label="nights"></paper-input>
-        <paper-button>Show</paper-button>
+        <paper-button on-tap="showCard">Show</paper-button>
       </div>
       <template is="dom-if" if="{{show}}">
         <div class="layout horizontal">
