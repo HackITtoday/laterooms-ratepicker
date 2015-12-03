@@ -74,7 +74,7 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: text/plain');
 
 /* Continue */
-$xml_string =  _curl_get_data(urldecode('http%3A//xmlfeed.laterooms.com/index.aspx'.$client_url));
+$xml_string =  _curl_get_data(urldecode('https%3A//book.api.ean.com/ean-services/rs/hotel/v3/avail'.$client_url));
 
 $xml = simplexml_load_string($xml_string);
 $json = json_encode($xml);
